@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".ui.main.LoginFragment">
+    tools:context=".ui.main.login.LoginFragment">
 
     <Button
         android:id="@+id/student_login_button"
@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/driver_login_btn"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="Driver Login"

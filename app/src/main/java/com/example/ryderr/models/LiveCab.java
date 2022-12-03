@@ -1,44 +1,129 @@
 package com.example.ryderr.models;
 
-import java.sql.Time;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class LiveCab {
 
+
+    String live_cab_id;
+    String driver_id;
+
     String driver_name;
     String vehicle_number;
+    String vehicle_type;
+    int capacity;
+
+    boolean live = false;
+
     String from_location;
     String to_location;
-    int progress;
+    String departure_time;
     int fare;
-    int driver_img;
-    Time departure_time;
-    ArrayList<String> riders;
 
-    public int getDriver_img() {
-        return driver_img;
-    }
+    ArrayList<String> riders_ids;
+    int count_riders;
 
-    public void setDriver_img(int driver_img) {
-        this.driver_img = driver_img;
-    }
 
-    public LiveCab(){
-
-    }
-
-    public LiveCab(String driver_name, String vehicle_number, int progress, String from_location, String to_location, Time departure_time, int driver_img) {
-        this.driver_name = driver_name;
-        this.vehicle_number = vehicle_number;
-        this.progress = progress;
+    public LiveCab(String cab_id, String driver_id, boolean live, String from_location,
+            String to_location, String departure_time, int fare,
+            ArrayList<String> riders_ids) {
+        this.live_cab_id = cab_id;
+        this.driver_id = driver_id;
+        this.live = live;
         this.from_location = from_location;
         this.to_location = to_location;
         this.departure_time = departure_time;
-        this.driver_img = driver_img;
+        this.fare = fare;
+        this.riders_ids = riders_ids;
+
+        final Driver[] driver = {new Driver()};
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("drivers").document(driver_id);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                driver[0] = documentSnapshot.toObject(Driver.class);
+            }
+        });
+        this.driver_name = driver[0].getName();
+        this.vehicle_number = driver[0].getVehicle_number();
+        this.vehicle_type = driver[0].getVehicle_type();
+        this.capacity = driver[0].getCapacity();
+
+        this.count_riders = riders_ids.size();
+
     }
 
-    void computeFare (String from, String to){
-        fare = 450;
+//    public LiveCab(String live_cab_id, String group_chat_id, int capacity, int count_riders,
+//            int fare, boolean live,
+//            String driver_name, String vehicle_number, String from_location,
+//            String to_location, String departure_time) {
+//        this.live_cab_id = live_cab_id;
+//        this.group_chat_id = group_chat_id;
+//        this.capacity = capacity;
+//        this.count_riders = count_riders;
+//        this.fare = fare;
+//        this.live = live;
+//        this.driver_name = driver_name;
+//        this.vehicle_number = vehicle_number;
+//        this.from_location = from_location;
+//        this.to_location = to_location;
+//        this.departure_time = departure_time;
+//        riders_ids = new ArrayList<>();
+//    }
+    public LiveCab() {
+
+    }
+
+
+
+    public String getFareText(){
+        int fare = getFare();
+        return Integer.toString(fare);
+    }
+    public String getLive_cab_id() {
+        return live_cab_id;
+    }
+
+    public void setLive_cab_id(String live_cab_id) {
+        this.live_cab_id = live_cab_id;
+    }
+
+//    public String getGroup_chat_id() {
+//        return group_chat_id;
+//    }
+//
+//    public void setGroup_chat_id(String group_chat_id) {
+//        this.group_chat_id = group_chat_id;
+//    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getCount_riders() {
+        return count_riders;
+    }
+
+    public void setCount_riders(int count_riders) {
+        this.count_riders = count_riders;
+    }
+
+    public int getFare() {
+        return fare;
+    }
+
+    public void setFare(int fare) {
+        this.fare = fare;
     }
 
     public String getDriver_name() {
@@ -54,15 +139,8 @@ public class LiveCab {
     }
 
     public void setVehicle_number(String vehicle_number) {
+
         this.vehicle_number = vehicle_number;
-    }
-
-    public int getProgress() {
-        return progress;
-    }
-
-    public void setProgress(int progress) {
-        this.progress = progress;
     }
 
     public String getFrom_location() {
@@ -81,11 +159,19 @@ public class LiveCab {
         this.to_location = to_location;
     }
 
-    public Time getDeparture_time() {
+    public String getDeparture_time() {
         return departure_time;
     }
 
-    public void setDeparture_time(Time departure_time) {
+    public void setDeparture_time(String departure_time) {
         this.departure_time = departure_time;
+    }
+
+    public ArrayList<String> getRiders() {
+        return riders_ids;
+    }
+
+    public void setRiders(ArrayList<String> riders_ids) {
+        this.riders_ids = riders_ids;
     }
 }

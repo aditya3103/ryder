@@ -18,7 +18,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
 
-
-
     }
 }

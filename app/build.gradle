@@ -38,11 +38,14 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
     implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
@@ -50,9 +53,19 @@ dependencies {
     // BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
 
+
+    implementation 'com.google.firebase:firebase-firestore'
+   // implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.firebaseui:firebase-ui:0.6.0'
+
+
+
+        // Declare the dependency for the Cloud Firestore library
+        // When using the BoM, you don't specify versions in Firebase library dependencies
+
+
 
 
 }

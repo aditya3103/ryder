@@ -7,35 +7,94 @@
 
     <fragment
         android:id="@+id/splashScreen"
-        android:name="com.example.ryderr.ui.main.SplashScreenFragment"
+        android:name="com.example.ryderr.ui.main.login.SplashScreenFragment"
         android:label="splash screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
             android:id="@+id/action_splashScreen_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_cabsFragment"
+            app:destination="@id/cabsFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.ryderr.ui.main.LoginFragment"
+        android:name="com.example.ryderr.ui.main.login.LoginFragment"
         android:label="login screen"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_liveCabs"
-            app:destination="@id/liveCabs" />
+            app:destination="@id/liveLiveCabs" />
         <action
             android:id="@+id/action_loginFragment_to_cabsFragment"
             app:destination="@id/cabsFragment" />
+        <action
+
+            android:id="@+id/action_loginFragment_to_driverLogin"
+            app:destination="@id/driverLogin" />
+            android:id="@+id/action_loginFragment_self"
+            app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/cabsFragment"
-        android:name="com.example.ryderr.ui.main.cabs.CabsFragment"
+        android:name="com.example.ryderr.ui.main.studentHome.CabsFragment"
         android:label="fragment_cabs"
-        tools:layout="@layout/fragment_cabs" />
+        tools:layout="@layout/fragment_cabs" >
+        <action
+            android:id="@+id/action_cabsFragment_to_studentProfile"
+            app:destination="@id/studentProfile" />
+        <action
+            android:id="@+id/action_cabsFrag_to_addRequest"
+            app:destination="@id/addRequest" />
+    </fragment>
     <fragment
-        android:id="@+id/liveCabs"
-        android:name="com.example.ryderr.ui.main.cabs.live.LiveCabsFragment"
+        android:id="@+id/liveLiveCabs"
+        android:name="com.example.ryderr.ui.main.studentHome.live.LiveCabsFragment"
         android:label="live cabs frag"
         tools:layout="@layout/fragment_live_cabs" />
 
+    <fragment
+        android:id="@+id/studentProfile"
+        android:name="com.example.ryderr.ui.main.StudentProfileFragment"
+        android:label="srudent profile frag"
+        tools:layout="@layout/fragment_student_profile" >
+        <action
+            android:id="@+id/action_studentProfile_to_splashScreen"
+            app:destination="@id/splashScreen" />
+    </fragment>
+    <fragment
+
+        android:id="@+id/driverLogin"
+        android:name="com.example.ryderr.ui.main.driverLogin.DriverLoginFragment"
+        android:label="driver login frag"
+        tools:layout="@layout/fragment_driver_login" >
+        <action
+            android:id="@+id/action_driverLogin_to_cabsFragment"
+            app:destination="@id/cabsFragment" />
+        <action
+            android:id="@+id/action_driverLogin_to_liveCabs"
+            app:destination="@id/liveCabs" />
+</fragment>
+<fragment
+        android:id="@+id/addRequest"
+        android:name="com.example.ryderr.ui.main.addRequest.AddRequest"
+        android:label="add req frag"
+        tools:layout="@layout/fragment_add_request" >
+        <action
+            android:id="@+id/action_addRequest_to_cabsFragment"
+            app:destination="@id/cabsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/requestFrag"
+        android:name="com.example.ryderr.ui.main.studentHome.request.RequestFragment"
+        android:label=" req frag"
+        tools:layout="@layout/fragment_request" >
+        <action
+            android:id="@+id/action_requestFrag_to_addRequest"
+            app:destination="@id/addRequest" />
+
+    </fragment>
 
 </navigation>
