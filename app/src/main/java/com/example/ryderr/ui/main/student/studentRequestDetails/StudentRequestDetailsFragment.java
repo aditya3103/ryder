@@ -12,6 +12,9 @@ import com.example.ryderr.R;
 import com.example.ryderr.models.Request;
 import com.example.ryderr.ui.main.student.studentHome.request.RequestViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ public class StudentRequestDetailsFragment extends Fragment {
     private MaterialButton joinBtn;
     private ListView ridersListView;
     RequestViewModel mRequestViewModel;
+    FirebaseAuth mAuth;
 
     public StudentRequestDetailsFragment() {
         // Required empty public constructor
@@ -38,6 +42,7 @@ public class StudentRequestDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         requestObj = new Request();
         mRequestViewModel = new RequestViewModel();
+        mAuth = FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
     }
 
@@ -87,6 +92,10 @@ public class StudentRequestDetailsFragment extends Fragment {
 
 
                 joinBtn.setOnClickListener(view1 ->{
+
+                    String uid = mAuth.getUid();
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("requests").document("reqID").update("riders_ids", FieldValue.arrayUnion(uid));
 
                 });
             }
