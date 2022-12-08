@@ -4,19 +4,21 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ryderr.R;
 import com.example.ryderr.models.Request;
+import com.example.ryderr.ui.main.driver.driverHome.DriverFragmentDirections;
 
 import java.util.Collections;
 import java.util.List;
 
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RequestDriverListAdapter extends RecyclerView.Adapter<RequestDriverViewHolder>{
     List<Request> list = Collections.emptyList();
     Context context;
+    ViewGroup parent;
 
     public RequestDriverListAdapter(List<Request> list, Context context) {
         this.list = list;
@@ -27,7 +29,7 @@ public class RequestDriverListAdapter extends RecyclerView.Adapter<RequestDriver
     public RequestDriverViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-
+        this.parent = parent;
         View view = inflater.inflate(R.layout.request_driver_card, parent, false);
         RequestDriverViewHolder viewHolder = new RequestDriverViewHolder(view);
 
@@ -53,7 +55,10 @@ public class RequestDriverListAdapter extends RecyclerView.Adapter<RequestDriver
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
+                DriverFragmentDirections.ActionDriverFragToDriverRequestDetailsFragment action = DriverFragmentDirections.actionDriverFragToDriverRequestDetailsFragment();
+                action.setRequestId(request.getRequest_id());
+                Navigation.findNavController(parent).navigate(action);
+               // Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }

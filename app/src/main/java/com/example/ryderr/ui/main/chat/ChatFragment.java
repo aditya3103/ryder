@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 
 
 import com.example.ryderr.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import java.util.Calendar;
@@ -64,9 +65,10 @@ public class ChatFragment extends Fragment {
         sendBtn.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View view) {
+                                           FirebaseAuth mAuth = FirebaseAuth.getInstance();
                                            String msgContent = msgInputText.getText().toString();
                                            String curTime = Calendar.getInstance().getTime().toString();
-                                           ChatMessage chatMessage = new ChatMessage(msgContent, curTime);
+                                           ChatMessage chatMessage = new ChatMessage(msgContent, curTime, ChatMessage.MSG_SENT, mAuth.getUid(), "grpID");
                                            chatViewModel.sendMessage(chatMessage);
                                        }
                                    });

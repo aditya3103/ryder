@@ -62,6 +62,7 @@
                 android:defaultValue="0" />
         </action>
 
+
     </fragment>
     <fragment
         android:id="@+id/liveLiveCabs"
@@ -122,6 +123,14 @@
         android:name="com.example.ryderr.ui.main.driver.driverHome.DriverFragment"
         android:label="DriverFragment" >
         <action
+            android:id="@+id/action_driverFrag_to_driverRequestDetailsFragment"
+            app:destination="@id/driverRequestDetailsFragment" >
+            <argument
+                android:name="request_id"
+                app:argType="string"
+                android:defaultValue="0" />
+        </action>
+        <action
             android:id="@+id/action_driverFragment_to_driverProfileFragment"
             app:destination="@id/driverProfileFragment" />
     </fragment>
@@ -141,11 +150,7 @@
         android:name="com.example.ryderr.ui.main.chat.ChatFragment"
         android:label="chat screen"
         tools:layout="@layout/fragment_chat"/>
-    <fragment
-        android:id="@+id/driverRequestDetailsFragment"
-        android:name="com.example.ryderr.ui.main.driverHome.driverRequestDetails.DriverRequestDetailsFragment"
-        android:label="fragment_driver_request_details"
-        tools:layout="@layout/fragment_driver_request_details" />
+
     <fragment
         android:id="@+id/requestDriverFragment"
         android:name="com.example.ryderr.ui.main.driver.driverHome.request_Driver.RequestDriverFragment"
@@ -159,6 +164,19 @@
         android:name="com.example.ryderr.ui.main.student.studentRequestDetails.StudentRequestDetailsFragment"
         android:label="fragment_student_request_details"
         tools:layout="@layout/fragment_student_request_details" >
+        <argument
+            android:name="request_id"
+            app:argType="string"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_studentRequestDetailsFragment_to_cabsFragment"
+            app:destination="@id/cabsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverRequestDetailsFragment"
+        android:name="com.example.ryderr.ui.main.driver.driverHome.driverRequestDetails.DriverRequestDetailsFragment"
+        android:label="fragment_driver_request_details"
+        tools:layout="@layout/fragment_driver_request_details" >
         <argument
             android:name="request_id"
             app:argType="string"

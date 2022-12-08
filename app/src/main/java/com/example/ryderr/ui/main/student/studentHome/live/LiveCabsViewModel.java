@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.ryderr.models.LiveCab;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -12,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -59,6 +63,41 @@ public class LiveCabsViewModel extends ViewModel {
                 });
 
         return studentLiveCabs;
+    }
+    MutableLiveData<Integer> riderCount;
+public MutableLiveData<Integer> getRiderCount(){
+    if(riderCount==null)
+        riderCount = new MutableLiveData<>(0);
+    return riderCount;
+}
+    public boolean joinCabStudent(String cabId){
+        final Boolean[] status = {false};
+
+
+        DocumentReference d = db.collection("cabs").document(cabId);
+        d.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                LiveCab cab = documentSnapshot.toObject(LiveCab.class);
+                ArrayList<String> ids = cab.getRiders_ids();
+                String currentId = FirebaseAuth.getInstance().getUid();
+                ids.add(currentId);
+                cab.setRiders(ids);
+                int count = cab.getCount_riders();
+                riderCount.setValue(count);
+                cab.setCount_riders(count+1);
+                db.collection("cabs").document(cabId).set(cab);
+
+                status[0] = true;
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                status[0] = false;
+            }
+        });
+        return status[0];
+
     }
     public void joinCab(String cabId){
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

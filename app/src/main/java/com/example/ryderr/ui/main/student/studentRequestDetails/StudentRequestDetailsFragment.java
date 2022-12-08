@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
 
 
 public class StudentRequestDetailsFragment extends Fragment {
@@ -93,9 +94,11 @@ public class StudentRequestDetailsFragment extends Fragment {
 
                 joinBtn.setOnClickListener(view1 ->{
 
-                    String uid = mAuth.getUid();
+
+                    String uid = FirebaseAuth.getInstance().getUid();
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("requests").document("reqID").update("riders_ids", FieldValue.arrayUnion(uid));
+                    db.collection("requests").document(requestObj.getRequest_id()).update("riders_ids", FieldValue.arrayUnion(uid));
+                    Navigation.findNavController(view).navigate(R.id.action_studentRequestDetailsFragment_to_cabsFragment);
 
                 });
             }

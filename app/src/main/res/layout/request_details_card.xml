@@ -133,12 +133,12 @@
             app:layout_constraintStart_toEndOf="@+id/timeText"
             app:layout_constraintTop_toBottomOf="@id/vehicle" />
         <TextView
-            android:id="@+id/capacityText"
+            android:id="@+id/capacityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/timeText"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Capacity"
+            android:text="Status"
             android:textSize="20dp"
             android:textColor="@android:color/black"
             android:layout_marginStart="5dp"
@@ -147,13 +147,14 @@
 
         <TextView
             android:id="@+id/capacity"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:text="5"
             android:textSize="20dp"
-            app:layout_constraintStart_toEndOf="@+id/capacityText"
+
+            app:layout_constraintStart_toEndOf="@+id/capacityTextView"
             app:layout_constraintTop_toBottomOf="@id/time" />
 
 
@@ -168,7 +169,7 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/capacityText" />
+            app:layout_constraintTop_toBottomOf="@id/capacityTextView" />
 
 
         <ListView

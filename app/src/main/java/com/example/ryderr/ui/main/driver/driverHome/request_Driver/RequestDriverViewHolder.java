@@ -22,7 +22,7 @@ public class RequestDriverViewHolder extends RecyclerView.ViewHolder{
 
         from = itemView.findViewById(R.id.request_driver_from_text);
         to = itemView.findViewById(R.id.request_driver_to_text);
-        timeText = itemView.findViewById(R.id.upcoming_driver_text_time);
+        timeText = itemView.findViewById(R.id.request_driver_text_time);
         fare_text = itemView.findViewById(R.id.request_driver_fare);
         acceptButton = itemView.findViewById(R.id.request_accept_button);
         d_request_progress_text = itemView.findViewById(R.id.request_driver_progress_text);

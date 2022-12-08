@@ -11,6 +11,8 @@ import com.example.ryderr.models.LiveCab;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class LiveCabListAdapter extends RecyclerView.Adapter<LiveCabViewHolder> {
@@ -23,13 +25,14 @@ public class LiveCabListAdapter extends RecyclerView.Adapter<LiveCabViewHolder> 
         this.list = list;
         this.context = context;
     }
+    LifecycleOwner l;
 
     @Override
     public LiveCabViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         cabViewModel = new LiveCabsViewModel();
-
+l = (LifecycleOwner) parent.getContext();
         View view = inflater.inflate(R.layout.live_cab_card, parent, false);
         LiveCabViewHolder viewHolder = new LiveCabViewHolder(view);
 
@@ -49,14 +52,26 @@ public class LiveCabListAdapter extends RecyclerView.Adapter<LiveCabViewHolder> 
         holder.vehicle.setText(liveCab.getVehicle_number());
         holder.fare_text.setText(liveCab.getFareText());
         int capacity = liveCab.getCapacity();
-        int count_riders = liveCab.getCount_riders();
-        String progressText = count_riders + "/" + capacity;
+        final int[] count_riders = {liveCab.getCount_riders()};
+        String progressText = count_riders[0] + "/" + capacity;
         holder.cabProgressText.setText(progressText);
         holder.cabProgressBar.setMax(capacity);
-        holder.cabProgressBar.setProgress(count_riders);
+        holder.cabProgressBar.setProgress(count_riders[0]);
+
+        Observer<Integer> observer = new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                count_riders[0] = integer;
+                String progressText = count_riders[0] + "/" + capacity;
+                holder.cabProgressText.setText(progressText);
+                holder.cabProgressBar.setProgress(count_riders[0]);
+            }
+        };
+
+        cabViewModel.getRiderCount().observe(l, observer);
 
         holder.joinButton.setOnClickListener(view -> {
-            cabViewModel.joinCab(liveCab.getLive_cab_id());
+            cabViewModel.joinCabStudent(liveCab.getLive_cab_id());
             holder.joinButton.setVisibility(View.GONE);
             holder.seeDetailBtn.setVisibility(View.VISIBLE);
         });

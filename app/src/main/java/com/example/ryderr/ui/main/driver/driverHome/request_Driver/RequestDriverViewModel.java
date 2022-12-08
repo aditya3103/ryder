@@ -4,9 +4,13 @@ import android.util.Log;
 
 import com.example.ryderr.models.Request;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -21,6 +25,7 @@ public class RequestDriverViewModel extends ViewModel {
 
     private static final String TAG = "driver request vm";
     public MutableLiveData<ArrayList<Request>> driverRequests;
+    public MutableLiveData<Request> mRequestLiveData;
     private DatabaseReference mDatabase;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -61,5 +66,35 @@ public class RequestDriverViewModel extends ViewModel {
                 });
 
         return driverRequests;
+    }
+    public MutableLiveData<Request> getRequest(String requestId){
+        final Request[] request = {new Request()};
+
+        if(mRequestLiveData==null){
+            mRequestLiveData = new MutableLiveData<Request>();
+        }
+
+        DocumentReference docRef = db.collection("requests").document(requestId);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        request[0] = documentSnapshot.toObject(Request.class);
+                        Log.d(TAG, request[0].getFrom_location());
+
+
+                        mRequestLiveData.setValue(request[0]);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: count not fetched"+ e.getMessage() );
+                    }
+                });
+
+
+
+
+        return mRequestLiveData;
     }
 }
