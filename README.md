@@ -35,7 +35,7 @@ Ryder offers seamless and secure transactions through UPI payments using Google 
 <table>
   <tr>
     <td align="center"><img src="/screenshots/start.jpeg" alt="Screen 1" width="200px"></td>
-    <td align="center"><img src="/screenshots/upcoming-rides.jpg" alt="Screen 2" width="200px"></td>
+    <td align="center"><img src="/screenshots/upcoming-rides.jpeg" alt="Screen 2" width="200px"></td>
     <td align="center"><img src="/screenshots/upcoming-rides-1.jpeg" alt="Screen 3" width="200px"></td>
     <td align="center"><img src="/screenshots/upcomingcabdet.jpeg" alt="Screen 4" width="200px"></td>
   </tr>
